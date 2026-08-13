@@ -38,95 +38,71 @@
 
 {{-- STRUKTUR ORGANISASI --}}
 <section class="max-w-6xl mx-auto px-6 mt-16">
-  <div class="bg-gradient-to-br from-slate-50 to-blue-50/40 rounded-3xl py-14 px-6 border border-slate-100 reveal">
-
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 text-xs font-semibold bg-blue-100 text-blue-600 px-3 py-1.5 rounded-full mb-3">&#127959; Organisasi</div>
-      <h2 class="text-2xl font-bold text-slate-800">Struktur Organisasi</h2>
-      <p class="text-sm text-slate-400 mt-1">Pejabat dan staf Cluster Palem RW 10</p>
+  <div class="relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 rounded-3xl py-14 px-5 md:px-8 border border-sky-100 shadow-sm reveal">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute -top-16 -left-12 w-56 h-56 rounded-full bg-sky-200/20 blur-3xl"></div>
+      <div class="absolute -bottom-20 -right-12 w-64 h-64 rounded-full bg-emerald-200/20 blur-3xl"></div>
     </div>
 
-    <div class="overflow-x-auto">
-      <div class="flex flex-col items-center min-w-[720px] mx-auto pb-8">
+    <div class="relative text-center mb-12">
+      <div class="inline-flex items-center gap-2 text-xs font-semibold bg-sky-100 text-sky-700 px-3 py-1.5 rounded-full mb-3">&#127959; Organisasi</div>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800">Struktur Organisasi</h2>
+      <p class="text-sm text-slate-500 mt-2">Susunan pengurus dan tim pelayanan warga RW 10 Cluster Palem</p>
+    </div>
 
-        {{-- Level 1: Ketua RW --}}
-        @if ($ketua)
-        <div class="group relative cursor-pointer">
-          <div class="flex flex-col items-center gap-3 bg-white rounded-2xl px-10 py-6 shadow-lg border-2 border-blue-100 group-hover:border-blue-400 group-hover:shadow-xl group-hover:shadow-blue-100/60 transition-all duration-300 group-hover:-translate-y-1">
-            <img src="{{ $ketua->photo_url }}"
-                 class="w-20 h-20 rounded-full ring-4 ring-blue-50 shadow-md transition-transform duration-300 group-hover:scale-105" alt="{{ $ketua->name }}">
-            <div class="text-center">
-              <div class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">{{ $ketua->position }}</div>
-              <div class="font-extrabold text-slate-800 text-base leading-tight">{{ $ketua->name }}</div>
-              @if ($ketua->period)<div class="text-xs text-slate-400 mt-0.5">Periode {{ $ketua->period }}</div>@endif
-            </div>
-          </div>
-          <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-3 w-56 bg-slate-900 text-white text-xs rounded-2xl p-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-200 z-50 shadow-2xl">
-            <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-slate-900 rotate-45 rounded-sm"></div>
-            <div class="font-bold text-sm mb-2">{{ $ketua->name }}</div>
-            @if ($ketua->phone)<div class="text-slate-300 mb-1">&#128222; {{ $ketua->phone }}</div>@endif
-            @if ($ketua->description)<div class="text-slate-400 text-[10px] mt-2 pt-2 border-t border-slate-700">{{ $ketua->description }}</div>@endif
-          </div>
-        </div>
-        @endif
+    <div class="relative flex flex-col items-center gap-8">
+      {{-- Level 1: Ketua RW (struktur tetap) --}}
+      @if ($ketua)
+      <div class="w-full flex justify-center">
+        <article class="group relative w-full max-w-[320px] bg-white/95 backdrop-blur rounded-2xl border border-sky-100 p-6 flex flex-col items-center text-center shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <span class="absolute -top-3 px-3 py-1 text-[11px] font-semibold rounded-full bg-sky-100 text-sky-700 border border-sky-200">Pimpinan RW</span>
+          <img src="{{ $ketua->photo_url }}" alt="{{ $ketua->name }}" class="w-24 h-24 rounded-full object-cover ring-4 ring-sky-50 border border-sky-100 shadow-sm mt-2">
+          <h3 class="mt-4 text-xl font-bold text-slate-800 leading-tight">{{ $ketua->name }}</h3>
+          <p class="text-sm text-sky-700 font-semibold mt-1">{{ $ketua->position }}</p>
+          @if ($ketua->period)
+            <p class="text-xs text-slate-400 mt-1">Periode {{ $ketua->period }}</p>
+          @endif
+        </article>
+      </div>
+      @endif
 
-        <div class="w-px h-8 bg-slate-200"></div>
+      {{-- Connector level 1 to 2 --}}
+      <div class="hidden md:block absolute top-[178px] left-1/2 -translate-x-1/2 w-px h-14 bg-sky-200"></div>
 
-        {{-- Level 2: RT Row --}}
-        <div class="relative flex gap-5 justify-center">
-          <div class="absolute top-0 left-[50px] right-[50px] h-px bg-slate-200"></div>
-          @foreach($rts as $rt)
+      {{-- Level 2: RT (struktur tetap) --}}
+      <div class="relative w-full flex flex-wrap justify-center gap-4 md:gap-5 pt-2">
+        <div class="hidden md:block absolute top-0 left-[70px] right-[70px] h-px bg-sky-200"></div>
+        @foreach($rts as $rt)
           <div class="flex flex-col items-center">
-            <div class="w-px h-8 bg-slate-200 relative z-10"></div>
-            <div class="group relative cursor-pointer">
-              <div class="flex flex-col items-center gap-2 bg-white rounded-xl px-3 py-4 shadow-md border border-emerald-100 group-hover:border-emerald-400 group-hover:shadow-lg group-hover:shadow-emerald-100/50 transition-all duration-300 group-hover:-translate-y-1 w-[100px]">
-                <img src="{{ $rt->photo_url }}"
-                     class="w-12 h-12 rounded-full ring-2 ring-emerald-50 shadow-sm transition-transform duration-300 group-hover:scale-105" alt="{{ $rt->name }}">
-                <div class="text-center">
-                  <div class="text-[9px] font-bold text-emerald-600 uppercase tracking-wide">RT {{ str_pad($rt->rt_number, 2, '0', STR_PAD_LEFT) }}</div>
-                  <div class="font-semibold text-slate-700 text-[11px] leading-tight mt-0.5">{{ $rt->name }}</div>
-                </div>
-              </div>
-              <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 w-44 bg-slate-900 text-white text-xs rounded-xl p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-200 z-50 shadow-xl">
-                <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-slate-900 rotate-45 rounded-sm"></div>
-                <div class="font-bold mb-1.5">{{ $rt->name }}</div>
-                <div class="text-slate-300 mb-0.5">&#127968; Ketua RT {{ str_pad($rt->rt_number, 2, '0', STR_PAD_LEFT) }}</div>
-                @if ($rt->phone)<div class="text-slate-300">&#128222; {{ $rt->phone }}</div>@endif
-              </div>
-            </div>
+            <div class="hidden md:block w-px h-8 bg-sky-200"></div>
+            <article class="group relative w-[130px] bg-white rounded-xl border border-emerald-100 px-3 py-4 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <img src="{{ $rt->photo_url }}" alt="{{ $rt->name }}" class="w-14 h-14 rounded-full object-cover ring-2 ring-emerald-50 border border-emerald-100 shadow-sm">
+              <h3 class="mt-2 text-[13px] font-bold text-slate-800 leading-tight">{{ $rt->name }}</h3>
+              <p class="text-[11px] text-emerald-700 font-semibold mt-0.5">RT {{ str_pad($rt->rt_number, 2, '0', STR_PAD_LEFT) }}</p>
+            </article>
           </div>
-          @endforeach
-        </div>
+        @endforeach
+      </div>
 
-        <div class="w-px h-8 bg-slate-200"></div>
+      {{-- Connector level 2 to 3 --}}
+      <div class="hidden md:block w-px h-8 bg-sky-200"></div>
 
-        {{-- Level 3: Divisi (dari database) --}}
-        <div class="relative flex gap-10 justify-center">
-          <div class="absolute top-0 left-[55px] right-[55px] h-px bg-slate-200"></div>
-          @foreach($divisi as $d)
-          <div class="flex flex-col items-center">
-            <div class="w-px h-8 bg-slate-200 relative z-10"></div>
-            <div class="group relative cursor-pointer">
-              <div class="flex flex-col items-center gap-2 bg-white rounded-xl px-4 py-4 shadow-md border border-slate-100 group-hover:border-blue-300 group-hover:shadow-lg group-hover:shadow-blue-100/50 transition-all duration-300 group-hover:-translate-y-1 w-[110px]">
-                <img src="{{ $d->photo_url }}"
-                     class="w-12 h-12 rounded-full ring-2 ring-slate-100 shadow-sm transition-transform duration-300 group-hover:scale-105" alt="{{ $d->name }}">
-                <div class="text-center">
-                  <div class="text-[9px] font-bold text-blue-600 uppercase tracking-wide leading-tight">{{ $d->position }}</div>
-                  <div class="font-semibold text-slate-700 text-[11px] leading-tight mt-0.5">{{ $d->name }}</div>
-                </div>
-              </div>
-              <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 bg-slate-900 text-white text-xs rounded-xl p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-200 z-50 shadow-xl">
-                <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-slate-900 rotate-45 rounded-sm"></div>
-                <div class="font-bold mb-1.5">{{ $d->name }}</div>
-                <div class="text-slate-300 mb-0.5">{{ $d->position }}</div>
-                @if ($d->phone)<div class="text-slate-300 mb-0.5">&#128222; {{ $d->phone }}</div>@endif
-                @if ($d->description)<div class="text-slate-400 text-[10px] mt-1.5 pt-1.5 border-t border-slate-700">{{ $d->description }}</div>@endif
-              </div>
+      {{-- Level 3 --}}
+      <div class="w-full mt-2">
+        <h3 class="text-center text-xl font-bold text-slate-700 mb-5">Tim Divisi RW</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          @forelse($divisi as $d)
+            <article class="group bg-white/95 rounded-2xl border border-slate-200 p-5 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:border-sky-200 hover:-translate-y-1 transition-all duration-300">
+              <img src="{{ $d->photo_url }}" alt="{{ $d->name }}" class="w-16 h-16 rounded-full object-cover border-2 border-white ring-2 ring-slate-100 shadow-sm">
+              <h4 class="mt-3 text-base font-bold text-slate-800 leading-tight">{{ $d->name }}</h4>
+              <p class="text-sm text-slate-500 mt-1">{{ $d->position }}</p>
+            </article>
+          @empty
+            <div class="sm:col-span-2 lg:col-span-4 rounded-2xl border border-dashed border-slate-300 bg-white/70 p-6 text-center text-sm text-slate-500">
+              Data tim belum tersedia. Tambahkan anggota dari panel admin untuk menampilkan struktur organisasi.
             </div>
-          </div>
-          @endforeach
+          @endforelse
         </div>
-
       </div>
     </div>
   </div>
