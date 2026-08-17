@@ -24,11 +24,19 @@ class PublicContentController extends Controller
         return view('profil', compact('ketua', 'rts', 'divisi'));
     }
 
+    public function layanan()
+    {
+        return view('layanan');
+    }
+
     public function berita(Request $request)
     {
+        $search = trim((string) $request->query('q', ''));
+
         $berita = Post::query()
             ->ofType('berita')
             ->published()
+            ->search($search)
             ->orderByDesc('is_featured')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
@@ -40,14 +48,18 @@ class PublicContentController extends Controller
         return view('berita', [
             'headline' => $headline,
             'berita' => $berita,
+            'search' => $search,
         ]);
     }
 
     public function informasi(Request $request)
     {
+        $search = trim((string) $request->query('q', ''));
+
         $informasi = Post::query()
             ->ofType('informasi')
             ->published()
+            ->search($search)
             ->orderByDesc('is_featured')
             ->orderByDesc('published_at')
             ->orderByDesc('id')
@@ -56,6 +68,35 @@ class PublicContentController extends Controller
 
         return view('informasi', [
             'informasi' => $informasi,
+            'search' => $search,
+        ]);
+    }
+
+    public function showBerita(Post $post)
+    {
+        return $this->showPost($post, 'berita');
+    }
+
+    public function showInformasi(Post $post)
+    {
+        return $this->showPost($post, 'informasi');
+    }
+
+    private function showPost(Post $post, string $type)
+    {
+        abort_unless($post->type === $type && $post->published_at && $post->published_at <= now(), 404);
+
+        $related = Post::query()
+            ->ofType($type)
+            ->published()
+            ->whereKeyNot($post->getKey())
+            ->orderByDesc('published_at')
+            ->limit(3)
+            ->get();
+
+        return view('post-show', [
+            'post' => $post,
+            'related' => $related,
         ]);
     }
 }

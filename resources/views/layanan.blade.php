@@ -96,7 +96,7 @@
         <h3 class="font-bold text-slate-800 mb-2">{{ setting('layanan.card_6_title','Aplikasi Android') }}</h3>
         <p class="text-xs text-slate-500 leading-relaxed mb-4">{{ setting('layanan.card_6_desc','Unduh aplikasi Palem untuk akses layanan langsung dari smartphone.') }}</p>
       </div>
-      <a href="#" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+      <a href="{{ setting('layanan.card_6_url','#') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
         Download APK <span>&rarr;</span>
       </a>
     </div>

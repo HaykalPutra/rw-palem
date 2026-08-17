@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>@yield('title', 'Admin Palem')</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>body{font-family:'Plus Jakarta Sans',sans-serif;} [x-cloak]{display:none!important}</style>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-50 text-slate-800">
 
@@ -45,6 +44,9 @@
       @endforeach
     </nav>
     <div class="px-3 py-4 border-t border-slate-800 space-y-1">
+      <a href="{{ route('admin.account.edit') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition {{ request()->routeIs('admin.account.*') ? 'bg-blue-600 text-white font-semibold' : 'hover:bg-slate-800 hover:text-white' }}">
+        &#128273; Akun &amp; Password
+      </a>
       <a href="{{ route('home') }}" target="_blank" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-slate-800 hover:text-white transition">
         &#128279; Lihat Website
       </a>
