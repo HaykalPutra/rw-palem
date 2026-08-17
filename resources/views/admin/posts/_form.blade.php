@@ -55,6 +55,16 @@
     </label>
   </div>
 
+  @if (!$post->exists)
+  <div class="md:col-span-2">
+    <label class="flex items-center gap-2.5 cursor-pointer select-none">
+      <input type="checkbox" name="buat_carousel" value="1"
+             class="w-4 h-4 rounded text-blue-600">
+      <span class="text-sm font-medium text-slate-700">🎬 Jadikan juga sebagai slide carousel di Halaman Home</span>
+    </label>
+  </div>
+  @endif
+
 </div>
 
 <div class="mt-6 flex items-center gap-3 pt-4 border-t border-slate-100">

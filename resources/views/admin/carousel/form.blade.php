@@ -13,29 +13,57 @@
   <h1 class="text-2xl font-bold mt-1">{{ $mode === 'create' ? 'Tambah Slide Baru' : 'Edit Slide' }}</h1>
 </div>
 
-<form method="POST" action="{{ $action }}" class="max-w-2xl space-y-5">
+<form method="POST" action="{{ $action }}" class="max-w-2xl space-y-5" x-data="{ sumber: '{{ old('post_id', $item->post_id) ? 'post' : 'manual' }}' }">
   @csrf
   @if ($mode === 'edit') @method('PUT') @endif
 
   <div>
-    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Foto / Gambar Slide <span class="text-red-500">*</span></label>
-    @include('admin.partials._img_upload', ['name' => 'image_url', 'value' => old('image_url', $item->image_url ?? '')])
-    @error('image_url') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+    <label class="block text-sm font-semibold text-slate-700 mb-2">Sumber Slide</label>
+    <div class="flex gap-4 mb-2">
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input type="radio" name="sumber_ui" value="manual" x-model="sumber" class="text-blue-600"> Isi Manual
+      </label>
+      <label class="flex items-center gap-2 text-sm cursor-pointer">
+        <input type="radio" name="sumber_ui" value="post" x-model="sumber" class="text-blue-600"> Ambil dari Berita/Informasi
+      </label>
+    </div>
   </div>
 
-  <div>
-    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Judul / Caption Besar <span class="text-red-500">*</span></label>
-    <input type="text" name="title" value="{{ old('title', $item->title) }}" required
-           class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-           placeholder="Contoh: FINAL 17 Agustus Volley Palem">
-    @error('title') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+  <div x-show="sumber === 'post'">
+    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Pilih Berita/Informasi</label>
+    <select name="post_id" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <option value="">-- Pilih --</option>
+      @foreach ($posts as $p)
+        <option value="{{ $p->id }}" {{ old('post_id', $item->post_id) == $p->id ? 'selected' : '' }}>
+          [{{ $p->type === 'berita' ? 'Berita' : 'Informasi' }}] {{ $p->title }}
+        </option>
+      @endforeach
+    </select>
+    @error('post_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+    <p class="text-xs text-slate-400 mt-1.5">Judul, gambar, dan ringkasan slide akan otomatis mengikuti berita/informasi yang dipilih.</p>
+  </div>
+
+  <div x-show="sumber === 'manual'" class="space-y-5">
+    <div>
+      <label class="block text-sm font-semibold text-slate-700 mb-1.5">Foto / Gambar Slide <span class="text-red-500">*</span></label>
+      @include('admin.partials._img_upload', ['name' => 'image_url', 'value' => old('image_url', $item->post_id ? '' : ($item->image_url ?? ''))])
+      @error('image_url') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-slate-700 mb-1.5">Judul / Caption Besar <span class="text-red-500">*</span></label>
+      <input type="text" name="title" value="{{ old('title', $item->post_id ? '' : $item->title) }}"
+             class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+             placeholder="Contoh: FINAL 17 Agustus Volley Palem">
+      @error('title') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+    </div>
   </div>
 
   <div>
     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Sub-judul / Keterangan</label>
     <textarea name="subtitle" rows="2"
               class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none"
-              placeholder="Deskripsi singkat slide...">{{ old('subtitle', $item->subtitle) }}</textarea>
+              placeholder="Deskripsi singkat slide... (kosongkan agar otomatis ambil ringkasan berita)">{{ old('subtitle', $item->getAttributes()['subtitle'] ?? '') }}</textarea>
   </div>
 
   <div class="grid grid-cols-2 gap-4">

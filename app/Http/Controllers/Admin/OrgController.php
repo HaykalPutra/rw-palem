@@ -44,7 +44,7 @@ class OrgController extends Controller
 
     private function validated(Request $request): array
     {
-        return $request->validate([
+        $data = $request->validate([
             'name'        => 'required|string|max:100',
             'position'    => 'required|string|max:100',
             'role_type'   => 'required|in:ketua_rw,rt,divisi',
@@ -56,5 +56,10 @@ class OrgController extends Controller
             'bg_color'    => 'nullable|string|max:7',
             'sort_order'  => 'nullable|integer|min:0',
         ]);
+
+        $data['bg_color']   = filled($data['bg_color'] ?? null) ? ltrim($data['bg_color'], '#') : '2563eb';
+        $data['sort_order'] = filled($data['sort_order'] ?? null) ? (int) $data['sort_order'] : 0;
+
+        return $data;
     }
 }

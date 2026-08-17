@@ -28,7 +28,16 @@
             <div class="font-medium">{{ $post->title }}</div>
             <div class="text-xs text-slate-500 mt-1">{{ \Illuminate\Support\Str::limit($post->excerpt, 90) }}</div>
           </td>
-          <td class="px-4 py-3 text-slate-600">{{ optional($post->published_at)->format('d M Y H:i') ?? '-' }}</td>
+          <td class="px-4 py-3 text-slate-600">
+            <div>{{ optional($post->published_at)->format('d M Y H:i') ?? '-' }}</div>
+            @if (! $post->published_at)
+              <span class="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Draft — belum tampil</span>
+            @elseif ($post->published_at > now())
+              <span class="inline-block mt-1 text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Terjadwal — belum tampil</span>
+            @else
+              <span class="inline-block mt-1 text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Tampil di website</span>
+            @endif
+          </td>
           <td class="px-4 py-3">
             @if ($post->is_featured)
               <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Ya</span>

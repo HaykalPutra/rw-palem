@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CarouselItem;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -42,6 +43,18 @@ class PostController extends Controller
     {
         $data = $this->validated($request);
         $post = Post::create($data);
+
+        if ($request->boolean('buat_carousel')) {
+            CarouselItem::create([
+                'post_id'     => $post->id,
+                'title'       => $post->title,
+                'image_url'   => $post->image_url ?: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900',
+                'button_text' => 'Selengkapnya',
+                'button_url'  => '#',
+                'is_active'   => true,
+                'sort_order'  => 0,
+            ]);
+        }
 
         return redirect()
             ->route('admin.posts.index', ['type' => $post->type])
