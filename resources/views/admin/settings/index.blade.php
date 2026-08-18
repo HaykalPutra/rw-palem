@@ -241,6 +241,15 @@ function s($settings, $group) { return $settings[$group] ?? collect(); }
           <div class="text-xs text-violet-600 font-semibold mt-2">Buka →</div>
         </div>
       </a>
+      <a href="{{ route('admin.posts.index', ['type'=>'event']) }}"
+         class="flex items-center gap-5 bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md rounded-2xl p-6 transition group">
+        <div class="w-14 h-14 rounded-2xl bg-emerald-100 group-hover:bg-emerald-200 text-emerald-600 flex items-center justify-center text-2xl transition">📅</div>
+        <div>
+          <div class="font-bold text-slate-800 mb-1">Kelola Event Mendatang</div>
+          <div class="text-sm text-slate-500">Tambah jadwal kegiatan warga, tanggal event, foto, dan informasi lengkapnya.</div>
+          <div class="text-xs text-emerald-600 font-semibold mt-2">Buka →</div>
+        </div>
+      </a>
     </div>
   </div>
 

@@ -18,6 +18,9 @@ class PostController extends Controller
             ->when(in_array($type, ['berita', 'informasi'], true), function ($query) use ($type) {
                 $query->ofType($type);
             })
+            ->when($type === 'event', function ($query) {
+                $query->where('is_event', true);
+            })
             ->orderByDesc('published_at')
             ->orderByDesc('id')
             ->paginate(10)
@@ -34,8 +37,9 @@ class PostController extends Controller
         $type = $request->query('type', 'berita');
 
         return view('admin.posts.create', [
-            'post' => new Post(['type' => in_array($type, ['berita', 'informasi'], true) ? $type : 'berita']),
+            'post' => new Post(['type' => $type === 'event' ? 'informasi' : (in_array($type, ['berita', 'informasi'], true) ? $type : 'berita')]),
             'type' => $type,
+            'isEventPage' => $type === 'event',
         ]);
     }
 
@@ -66,6 +70,7 @@ class PostController extends Controller
         return view('admin.posts.edit', [
             'post' => $post,
             'type' => $post->type,
+            'isEventPage' => request()->query('type') === 'event',
         ]);
     }
 
@@ -98,10 +103,13 @@ class PostController extends Controller
             'content' => ['nullable', 'string'],
             'image_url' => ['nullable', 'url', 'max:2048'],
             'published_at' => ['nullable', 'date'],
+            'event_date' => ['nullable', 'date'],
+            'is_event' => ['nullable', 'boolean'],
             'is_featured' => ['nullable', 'boolean'],
         ]);
 
         $data['is_featured'] = $request->boolean('is_featured');
+        $data['is_event'] = $request->boolean('is_event') || $request->boolean('is_event_page');
 
         return $data;
     }

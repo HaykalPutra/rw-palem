@@ -7,20 +7,46 @@ use App\Models\OrgMember;
 use App\Models\Post;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PublicContentController extends Controller
 {
     public function home()
     {
         $carousel = CarouselItem::active()->get();
-        return view('index', compact('carousel'));
+        $upcomingEvents = Post::query()
+            ->where('is_event', true)
+            ->published()
+            ->where(function ($query) {
+                $query->whereNull('event_date')->orWhere('event_date', '>=', now());
+            })
+            ->orderByRaw('event_date IS NULL, event_date')
+            ->limit(3)
+            ->get();
+        $featuredPromo = Post::query()
+            ->whereIn('type', ['berita', 'informasi'])
+            ->published()
+            ->featured()
+            ->orderByDesc('published_at')
+            ->first();
+
+        return view('index', compact('carousel', 'upcomingEvents', 'featuredPromo'));
     }
 
     public function profil()
     {
+        if (! Schema::hasTable('org_members')) {
+            return view('profil', [
+                'ketua' => null,
+                'rts' => [],
+                'divisi' => [],
+            ]);
+        }
+
         $ketua  = OrgMember::where('role_type', 'ketua_rw')->orderBy('sort_order')->first();
         $rts    = OrgMember::where('role_type', 'rt')->orderBy('rt_number')->get();
         $divisi = OrgMember::where('role_type', 'divisi')->orderBy('sort_order')->get();
+
         return view('profil', compact('ketua', 'rts', 'divisi'));
     }
 

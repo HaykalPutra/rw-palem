@@ -11,11 +11,11 @@
       <div class="inline-flex items-center gap-2 bg-white/15 border border-white/20 text-white/90 text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
         &#127959; Pusat Layanan
       </div>
-      <h1 class="text-4xl font-extrabold mb-4 leading-tight">{{ setting('layanan.hero_title','Pusat Layanan Warga Palem') }}</h1>
-      <p class="text-white/70 text-sm mb-8 leading-relaxed max-w-md">{{ setting('layanan.hero_subtitle','Layanan komunitas yang efisien, transparan, dan mudah diakses.') }}</p>
+      <h1 class="text-4xl font-extrabold mb-4 leading-tight">{{ setting('layanan.hero_title','Pusat Layanan Warga RW 09') }}</h1>
+      <p class="text-white/70 text-sm mb-8 leading-relaxed max-w-md">{{ setting('layanan.hero_subtitle','Layanan administrasi, pengaduan, dan komunikasi warga Kelurahan Rancabolang Kecamatan Gedebage Kota Bandung secara cepat, tertib, dan terintegrasi.') }}</p>
       <div class="flex gap-3 flex-wrap">
-        <a href="#" class="bg-blue-500 hover:bg-blue-400 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-blue-900/50">Lihat Status Layanan</a>
-        <a href="#" class="bg-white/15 hover:bg-white/25 border border-white/25 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-xl">Panduan Pengguna</a>
+        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', setting('contact.wa', '6289660295080')) }}?text={{ urlencode('Halo Admin RW, saya ingin mengajukan layanan/permohonan.\n\nNama lengkap: \nRT/RW: \nJenis layanan: \nKeterangan: ') }}" class="bg-blue-500 hover:bg-blue-400 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-blue-900/50">Ajukan Layanan</a>
+        <a href="https://wa.me/6289660295080?text={{ urlencode('Halo Admin RW, saya ingin bertanya mengenai prosedur layanan dan persyaratan.\n\nNama lengkap: \nRT/RW: \nPertanyaan: ') }}" class="bg-white/15 hover:bg-white/25 border border-white/25 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-xl">Hubungi Petugas</a>
       </div>
     </div>
     <div class="rounded-2xl overflow-hidden shadow-2xl shadow-blue-900/60 reveal-right">
@@ -32,7 +32,7 @@
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
 
-    <div class="group border border-slate-100 rounded-2xl p-6 hover:shadow-lg hover:border-blue-100 hover:-translate-y-0.5 transition-all duration-200 bg-white reveal-scale d1">
+    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', setting('contact.wa', '6289660295080')) }}?text={{ urlencode('Halo Admin RW, saya ingin mengajukan persuratan/administrasi.\n\nNama lengkap: \nRT/RW: \nKeperluan: \nKeterangan detail: ') }}" class="group border border-slate-100 rounded-2xl p-6 hover:shadow-lg hover:border-blue-100 hover:-translate-y-0.5 transition-all duration-200 bg-white reveal-scale d1 block">
       <div class="w-11 h-11 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-blue-600 flex items-center justify-center mb-5 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
           <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75-6.75a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z" clip-rule="evenodd" />
@@ -41,7 +41,7 @@
       </div>
       <h3 class="font-bold text-slate-800 mb-2">{{ setting('layanan.card_1_title','Persuratan & Administrasi') }}</h3>
       <p class="text-xs text-slate-500 leading-relaxed">{{ setting('layanan.card_1_desc','Pengajuan surat pengantar, keterangan domisili, dan administrasi kependudukan lainnya.') }}</p>
-    </div>
+    </a>
 
     <div class="group border border-slate-100 rounded-2xl p-6 hover:shadow-lg hover:border-emerald-100 hover:-translate-y-0.5 transition-all duration-200 bg-white reveal-scale d2">
       <div class="w-11 h-11 rounded-xl bg-emerald-50 group-hover:bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5 transition-colors">
@@ -65,7 +65,7 @@
       <p class="text-xs text-slate-500 leading-relaxed">{{ setting('layanan.card_3_desc','Reservasi clubhouse, lapangan olahraga, dan area publik cluster.') }}</p>
     </div>
 
-    <div class="group border border-slate-100 rounded-2xl p-6 hover:shadow-lg hover:border-violet-100 hover:-translate-y-0.5 transition-all duration-200 bg-white reveal-scale d4">
+    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', setting('contact.wa', '6289660295080')) }}?text={{ urlencode('Halo Admin RW, saya ingin menyampaikan pengaduan warga.\n\nNama lengkap: \nRT/RW: \nJenis keluhan: \nDetail keluhan: ') }}" class="group border border-slate-100 rounded-2xl p-6 hover:shadow-lg hover:border-violet-100 hover:-translate-y-0.5 transition-all duration-200 bg-white reveal-scale d4 block">
       <div class="w-11 h-11 rounded-xl bg-violet-50 group-hover:bg-violet-100 text-violet-600 flex items-center justify-center mb-5 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
           <path fill-rule="evenodd" d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97a48.901 48.901 0 0 1-3.476.383.39.39 0 0 0-.297.17l-2.755 4.133a.75.75 0 0 1-1.248 0l-2.755-4.133a.39.39 0 0 0-.297-.17 48.9 48.9 0 0 1-3.476-.384c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z" clip-rule="evenodd" />
@@ -73,9 +73,9 @@
       </div>
       <h3 class="font-bold text-slate-800 mb-2">{{ setting('layanan.card_4_title','Pengaduan Warga') }}</h3>
       <p class="text-xs text-slate-500 leading-relaxed">{{ setting('layanan.card_4_desc','Laporan masalah keamanan, kebersihan, atau fasilitas cluster secara cepat.') }}</p>
-    </div>
+    </a>
 
-    <div class="group border border-red-100 bg-red-50/30 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 reveal-scale d5">
+    <a href="https://wa.me/6289660295080?text={{ urlencode('Halo Pak Satpam, saya membutuhkan bantuan darurat.\n\nNama lengkap: \nRT/RW: \nLokasi kejadian: \nJenis keadaan darurat: \nDetail keadaan: ') }}" class="group border border-red-100 bg-red-50/30 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 reveal-scale d5 block">
       <div class="w-11 h-11 rounded-xl bg-red-100 group-hover:bg-red-200 text-red-600 flex items-center justify-center mb-5 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
           <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
@@ -83,23 +83,7 @@
       </div>
       <h3 class="font-bold text-slate-800 mb-2">{{ setting('layanan.card_5_title','Keamanan & Darurat') }}</h3>
       <p class="text-xs text-slate-500 leading-relaxed">{{ setting('layanan.card_5_desc','Kontak darurat dan kontrol patroli keamanan terintegrasi.') }}</p>
-    </div>
-
-    <div class="group border border-slate-100 rounded-2xl p-6 hover:shadow-lg hover:border-blue-100 hover:-translate-y-0.5 transition-all duration-200 bg-white flex flex-col justify-between reveal-scale d6">
-      <div>
-        <div class="w-11 h-11 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-blue-600 flex items-center justify-center mb-5 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-            <path d="M10.5 18.75a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" />
-            <path fill-rule="evenodd" d="M8.625.75A3.375 3.375 0 0 0 5.25 4.125v15.75a3.375 3.375 0 0 0 3.375 3.375h6.75a3.375 3.375 0 0 0 3.375-3.375V4.125A3.375 3.375 0 0 0 15.375.75h-6.75ZM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 0 1 7.5 19.875V4.125Z" clip-rule="evenodd" />
-          </svg>
-        </div>
-        <h3 class="font-bold text-slate-800 mb-2">{{ setting('layanan.card_6_title','Aplikasi Android') }}</h3>
-        <p class="text-xs text-slate-500 leading-relaxed mb-4">{{ setting('layanan.card_6_desc','Unduh aplikasi Palem untuk akses layanan langsung dari smartphone.') }}</p>
-      </div>
-      <a href="{{ setting('layanan.card_6_url','#') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors">
-        Download APK <span>&rarr;</span>
-      </a>
-    </div>
+    </a>
 
   </div>
 </section>

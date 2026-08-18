@@ -24,18 +24,18 @@
         <input type="radio" name="sumber_ui" value="manual" x-model="sumber" class="text-blue-600"> Isi Manual
       </label>
       <label class="flex items-center gap-2 text-sm cursor-pointer">
-        <input type="radio" name="sumber_ui" value="post" x-model="sumber" class="text-blue-600"> Ambil dari Berita/Informasi
+        <input type="radio" name="sumber_ui" value="post" x-model="sumber" class="text-blue-600"> Ambil dari Berita/Informasi/Event
       </label>
     </div>
   </div>
 
   <div x-show="sumber === 'post'">
-    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Pilih Berita/Informasi</label>
+    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Pilih Berita/Informasi/Event</label>
     <select name="post_id" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
       <option value="">-- Pilih --</option>
       @foreach ($posts as $p)
         <option value="{{ $p->id }}" {{ old('post_id', $item->post_id) == $p->id ? 'selected' : '' }}>
-          [{{ $p->type === 'berita' ? 'Berita' : 'Informasi' }}] {{ $p->title }}
+          [{{ $p->type === 'berita' ? 'Berita' : 'Informasi' }}{{ $p->is_event ? ' / Event' : '' }}] {{ $p->title }}
         </option>
       @endforeach
     </select>

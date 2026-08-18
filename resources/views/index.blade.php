@@ -148,18 +148,25 @@ function carousel(total) {
       <h2 class="text-sm font-bold text-slate-800 uppercase tracking-widest">Event Mendatang</h2>
     </div>
     <div class="bg-slate-50 border border-slate-100 rounded-2xl p-5">
+      @forelse ($upcomingEvents as $event)
+      <a href="{{ $event->type === 'berita' ? route('berita.show', $event) : route('informasi.show', $event) }}" class="flex items-center gap-3 bg-white border border-slate-100 rounded-xl px-4 py-4 text-sm text-slate-600 shadow-sm hover:border-blue-200 transition mb-3 last:mb-0">
+        <span class="text-lg">&#128197;</span>
+        <span class="min-w-0"><strong class="block text-slate-700">{{ $event->title }}</strong><small class="text-xs text-slate-400">{{ optional($event->event_date)->translatedFormat('d M Y, H:i') }}</small></span>
+      </a>
+      @empty
       <div class="flex items-center gap-3 bg-white border border-slate-100 rounded-xl px-4 py-4 text-sm text-slate-400 shadow-sm">
         <span class="text-lg">&#128197;</span>
-        <span>Tidak ada acara mendatang.</span>
+        <span>{{ setting('home.event_empty','Belum ada event mendatang.') }}</span>
       </div>
+      @endforelse
     </div>
   </div>
   <div class="relative rounded-2xl overflow-hidden group shadow-md reveal-right">
-    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" alt="Pelatihan UMKM">
+    <img src="{{ $featuredPromo?->image_url ?: setting('home.promo_image','https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80') }}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500" alt="{{ $featuredPromo?->title ?: setting('home.promo_title','Informasi Warga') }}">
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-      <div class="text-[10px] font-bold bg-yellow-400 text-slate-900 px-2.5 py-1 rounded-full w-fit mb-2 tracking-wide">PROMO</div>
-      <h3 class="text-white font-bold text-lg mb-3 leading-snug">Pelatihan UMKM Landing Page</h3>
-      <a href="#" class="text-xs font-semibold bg-blue-600 hover:bg-blue-500 transition text-white w-fit px-4 py-2 rounded-lg">Pelajari lebih lanjut &rarr;</a>
+      <div class="text-[10px] font-bold bg-yellow-400 text-slate-900 px-2.5 py-1 rounded-full w-fit mb-2 tracking-wide">{{ setting('home.promo_badge','INFORMASI WARGA') }}</div>
+      <h3 class="text-white font-bold text-lg mb-3 leading-snug">{{ $featuredPromo?->title ?: setting('home.promo_title','Informasi Warga RW 09') }}</h3>
+      <a href="{{ $featuredPromo ? ($featuredPromo->type === 'informasi' ? route('informasi.show', $featuredPromo) : route('berita.show', $featuredPromo)) : setting('home.promo_url','#') }}" class="text-xs font-semibold bg-blue-600 hover:bg-blue-500 transition text-white w-fit px-4 py-2 rounded-lg">{{ setting('home.promo_button','Pelajari lebih lanjut') }} &rarr;</a>
     </div>
   </div>
 </section>

@@ -46,8 +46,16 @@
 
     <div class="relative text-center mb-12">
       <div class="inline-flex items-center gap-2 text-xs font-semibold bg-sky-100 text-sky-700 px-3 py-1.5 rounded-full mb-3">&#127959; Organisasi</div>
+
+      <div class="mx-auto mb-4 inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-sky-200 bg-white/80 px-4 py-2 shadow-sm">
+        <span class="text-xs font-bold uppercase tracking-[0.12em] text-sky-700">{{ setting('profil.rw_label', 'RW 09') }}</span>
+        <span class="text-slate-300">/</span>
+        <span class="text-xs font-medium text-slate-600">{{ setting('profil.lokasi_label', 'Kelurahan Rancabolang Kecamatan Gedebage Kota Bandung') }}</span>
+        <span class="text-slate-300">/</span>
+        <span class="text-xs font-semibold text-emerald-700">{{ setting('profil.periode_label', 'Periode 2026–2031') }}</span>
+      </div>
+
       <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800">Struktur Organisasi</h2>
-      <p class="text-sm text-slate-500 mt-2">Susunan pengurus dan tim pelayanan warga RW 10 Cluster Palem</p>
     </div>
 
     <div class="relative flex flex-col items-center gap-8">

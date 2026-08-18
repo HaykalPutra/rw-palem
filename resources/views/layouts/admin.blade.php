@@ -25,6 +25,7 @@
         $nav = [
           ['label'=>'📰 Berita',           'url'=>route('admin.posts.index',['type'=>'berita']),     'active'=>request()->routeIs('admin.posts.*') && request('type','berita')==='berita'],
           ['label'=>'📢 Informasi',         'url'=>route('admin.posts.index',['type'=>'informasi']),  'active'=>request()->routeIs('admin.posts.*') && request('type')==='informasi'],
+          ['label'=>'📅 Event Mendatang',   'url'=>route('admin.posts.index',['type'=>'event']),      'active'=>request()->routeIs('admin.posts.*') && request('type')==='event'],
           ['label'=>'──────────',           'url'=>'#', 'active'=>false, 'divider'=>true],
           ['label'=>'🏠 Halaman Home',      'url'=>route('admin.settings.index').'?page=home',    'active'=>request()->routeIs('admin.settings.*') && $pg==='home'],
           ['label'=>'👤 Halaman Profil',    'url'=>route('admin.settings.index').'?page=profil',  'active'=>request()->routeIs('admin.settings.*') && $pg==='profil'],

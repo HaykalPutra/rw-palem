@@ -12,10 +12,16 @@
 
   <div>
     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tipe Konten</label>
-    <select name="type" class="{{ $ic }} bg-white">
-      <option value="berita"    @selected(old('type', $post->type) === 'berita')>📰 Berita</option>
-      <option value="informasi" @selected(old('type', $post->type) === 'informasi')>📢 Informasi / Pengumuman</option>
-    </select>
+    @if ($isEventPage ?? false)
+      <input type="hidden" name="type" value="informasi">
+      <input type="hidden" name="is_event_page" value="1">
+      <div class="{{ $ic }} bg-slate-50 text-slate-600">📅 Event Mendatang</div>
+    @else
+      <select name="type" class="{{ $ic }} bg-white">
+        <option value="berita"    @selected(old('type', $post->type) === 'berita')>📰 Berita</option>
+        <option value="informasi" @selected(old('type', $post->type) === 'informasi')>📢 Informasi / Pengumuman</option>
+      </select>
+    @endif
     @error('type')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
   </div>
 
@@ -23,6 +29,13 @@
     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tanggal Publikasi</label>
     <input type="datetime-local" name="published_at" value="{{ old('published_at', optional($post->published_at)->format('Y-m-d\TH:i')) }}" class="{{ $ic }}">
     @error('published_at')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
+  </div>
+
+  <div>
+    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tanggal Event</label>
+    <input type="datetime-local" name="event_date" value="{{ old('event_date', optional($post->event_date)->format('Y-m-d\TH:i')) }}" class="{{ $ic }}">
+    <p class="text-xs text-slate-400 mt-1">Opsional. Isi jika ingin menampilkan tanggal kegiatan di Home.</p>
+    @error('event_date')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
   </div>
 
   <div class="md:col-span-2">
@@ -44,6 +57,21 @@
       'value' => old('image_url', $post->image_url ?? ''),
     ])
     @error('image_url')<p class="text-xs text-red-600 mt-1">{{ $message }}</p>@enderror
+  </div>
+
+  <div class="md:col-span-2">
+    @if ($isEventPage ?? false)
+      <input type="hidden" name="is_event" value="1">
+      <p class="text-xs text-emerald-600">Konten ini akan tampil di bagian Event Mendatang pada Home. Foto tidak wajib.</p>
+    @else
+      <label class="flex items-center gap-2.5 cursor-pointer select-none">
+        <input type="checkbox" name="is_event" value="1"
+               @checked(old('is_event', $post->is_event))
+               class="w-4 h-4 rounded text-emerald-600">
+        <span class="text-sm font-medium text-slate-700">📅 Tampilkan sebagai Event Mendatang di Home</span>
+      </label>
+      <p class="text-xs text-slate-400 mt-1 ml-7">Centang jika konten ini juga ingin ditampilkan sebagai event.</p>
+    @endif
   </div>
 
   <div class="md:col-span-2">
