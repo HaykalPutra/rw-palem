@@ -38,16 +38,54 @@ class PublicContentController extends Controller
         if (! Schema::hasTable('org_members')) {
             return view('profil', [
                 'ketua' => null,
+                'sekretaris' => null,
+                'bendahara' => null,
                 'rts' => [],
-                'divisi' => [],
+                'bidangGroups' => collect(),
+                'pkk' => collect(),
             ]);
         }
 
-        $ketua  = OrgMember::where('role_type', 'ketua_rw')->orderBy('sort_order')->first();
-        $rts    = OrgMember::where('role_type', 'rt')->orderBy('rt_number')->get();
+        $ketua = OrgMember::where('role_type', 'ketua_rw')->orderBy('sort_order')->first();
+        $rts   = OrgMember::where('role_type', 'rt')->orderBy('rt_number')->get();
+
         $divisi = OrgMember::where('role_type', 'divisi')->orderBy('sort_order')->get();
 
-        return view('profil', compact('ketua', 'rts', 'divisi'));
+        // Sekretaris & Bendahara tampil sendiri di baris kedua struktur.
+        $sekretaris = $divisi->firstWhere('position', 'Sekretaris');
+        $bendahara  = $divisi->firstWhere('position', 'Bendahara');
+
+        $sisaDivisi = $divisi->reject(
+            fn ($m) => in_array($m->position, ['Sekretaris', 'Bendahara'])
+        );
+
+        // Seksi PKK & Posyandu dipisah ke kartu "Tim Penggerak PKK" sendiri.
+        $pkk = $sisaDivisi
+            ->filter(fn ($m) => str_contains(strtolower($m->position), 'pkk'))
+            ->values()
+            ->map(fn ($m, $i) => [
+                'model'   => $m,
+                'jabatan' => ['Ketua', 'Sekretaris'][$i] ?? 'Anggota',
+            ]);
+
+        $sisaDivisi = $sisaDivisi->reject(
+            fn ($m) => str_contains(strtolower($m->position), 'pkk')
+        );
+
+        // Sisanya dikelompokkan per bidang (berdasarkan kolom `position`),
+        // anggota pertama pada tiap bidang otomatis diberi label "Ketua".
+        $bidangGroups = $sisaDivisi
+            ->groupBy('position')
+            ->map(fn ($members, $bidang) => [
+                'nama'    => $bidang,
+                'anggota' => $members->values()->map(fn ($m, $i) => [
+                    'model'   => $m,
+                    'jabatan' => $i === 0 ? 'Ketua' : 'Anggota',
+                ]),
+            ])
+            ->values();
+
+        return view('profil', compact('ketua', 'sekretaris', 'bendahara', 'rts', 'bidangGroups', 'pkk'));
     }
 
     public function layanan()

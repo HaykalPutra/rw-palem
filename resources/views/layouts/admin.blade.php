@@ -16,8 +16,8 @@
   {{-- Sidebar --}}
   <aside class="w-56 bg-slate-900 text-slate-300 flex flex-col shrink-0">
     <div class="px-5 py-5 border-b border-slate-800">
-      <div class="text-xs text-slate-500 uppercase tracking-widest mb-1">Panel Admin</div>
-      <div class="font-extrabold text-white text-base">Palem RW 10</div>
+      <div class="text-xs text-slate-500 uppercase tracking-widest mb-1">Panel Admin CMS </div>
+      <div class="font-extrabold text-white text-base">Palem RW 09</div>
     </div>
     <nav class="flex-1 px-3 py-4 space-y-0.5 text-sm overflow-y-auto">
       @php

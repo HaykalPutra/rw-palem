@@ -170,7 +170,7 @@ function carousel(total) {
     </div>
   </div>
 </section>
-
+  
 {{-- APP PROMO --}}
 <section class="max-w-6xl mx-auto px-6 mt-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
   <div class="relative reveal-left">
@@ -181,6 +181,7 @@ function carousel(total) {
     <div class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full mb-4">{{ setting('home.app_badge','Tentang Portal Kami') }}</div>
     <h2 class="text-3xl font-extrabold mb-4 leading-tight">{{ setting('home.app_title','Portal Resmi Warga Palem') }}</h2>
     <p class="text-slate-500 text-sm mb-7 leading-relaxed">{{ setting('home.app_subtitle','Semua informasi, layanan, dan kegiatan warga tersedia dalam satu portal.') }}</p>
+    
     <div class="grid grid-cols-2 gap-4">
       <div class="border border-slate-100 rounded-2xl p-5 hover:shadow-md transition-shadow bg-white">
         <div class="text-blue-600 text-xl mb-2">&#127760;</div>
@@ -193,9 +194,20 @@ function carousel(total) {
         <div class="text-xs text-slate-400 leading-relaxed">{{ setting('home.app_card2_desc','Konsultasi dan pengaduan langsung ke pengurus RW.') }}</div>
       </div>
     </div>
+
+    <!-- ========================================== -->
+    <!-- TOMBOL INSTALL PWA (Ditambahkan di sini) -->
+    <!-- ========================================== -->
+    <button onclick="window.triggerPwaInstall()" style="display: none;" class="btn-install-pwa mt-8 w-full md:w-auto items-center justify-center gap-3 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-xl active:scale-95">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Download App Android
+    </button>
+    <!-- ========================================== -->
+
   </div>
 </section>
 
 <div class="h-20"></div>
 @endsection
-

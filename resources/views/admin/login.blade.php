@@ -2,7 +2,7 @@
 
 @section('title', 'Login Admin – Palem RW')
 @section('heading', 'Panel Admin')
-@section('subheading', 'Palem RW 10 Cluster')
+@section('subheading', 'Palem RW 09 Cluster')
 
 @section('form')
       <form method="POST" action="{{ route('admin.login.post') }}">
