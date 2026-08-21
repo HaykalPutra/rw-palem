@@ -96,35 +96,42 @@
 
     {{-- Level 4: RT & PKK --}}
     <div class="pt-8 border-t border-slate-200">
-      <div class="flex flex-col md:flex-row gap-8 items-start justify-center">
-        <div class="w-full md:flex-1">
-          <h3 class="text-xs font-bold text-slate-800 mb-4 uppercase tracking-wider text-left">Susunan Pengurus RT</h3>
-          <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
-            @foreach ($rts as $rt)
-            <div class="bg-white p-2 rounded-lg border border-slate-200 text-center">
-              <div class="text-[10px] font-bold text-blue-600">RT {{ str_pad($rt->rt_number, 2, '0', STR_PAD_LEFT) }}</div>
-            </div>
-            @endforeach
-          </div>
-        </div>
-
-        @if ($pkk->isNotEmpty())
-        <div class="bg-emerald-500/10 p-5 rounded-xl border border-emerald-500/20 w-full md:w-auto">
-          <h3 class="text-xs font-bold text-emerald-600 mb-4 uppercase tracking-wider">Tim Penggerak PKK</h3>
-          <div class="flex gap-8 justify-center flex-wrap">
-            @foreach ($pkk as $p)
+      <h3 class="text-xs font-bold text-slate-800 mb-4 uppercase tracking-wider text-left">Susunan Pengurus RT</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        @foreach ($rts as $rt)
+        <div class="bg-white/50 p-5 rounded-xl border border-blue-100 text-left">
+          <h4 class="text-xs font-bold text-blue-600 uppercase mb-4 border-b border-blue-100 pb-2">RT {{ str_pad($rt['nomor'], 2, '0', STR_PAD_LEFT) }}</h4>
+          <div class="space-y-3">
+            @foreach ($rt['anggota'] as $a)
             <div class="flex items-center gap-3">
-              <img src="{{ $p['model']->photo_url }}" alt="{{ $p['model']->name }}" class="w-8 h-8 rounded-full object-cover border border-emerald-100">
-              <div class="text-left">
-                <div class="text-[10px] font-bold text-slate-500 uppercase">{{ $p['jabatan'] }}</div>
-                <div class="text-xs text-slate-800 font-semibold">{{ $p['model']->name }}</div>
+              <img src="{{ $a->photo_url }}" alt="{{ $a->name }}" class="w-8 h-8 rounded-full object-cover">
+              <div>
+                <div class="text-xs font-semibold">{{ $a->name }}</div>
+                <div class="text-[10px] text-slate-400">{{ str_replace(' RT '.str_pad($rt['nomor'],2,'0',STR_PAD_LEFT), '', $a->position) }}</div>
               </div>
             </div>
             @endforeach
           </div>
         </div>
-        @endif
+        @endforeach
       </div>
+
+      @if ($pkk->isNotEmpty())
+      <div class="bg-emerald-500/10 p-5 rounded-xl border border-emerald-500/20 max-w-md">
+        <h3 class="text-xs font-bold text-emerald-600 mb-4 uppercase tracking-wider">Tim Penggerak PKK</h3>
+        <div class="flex gap-8 justify-center flex-wrap">
+          @foreach ($pkk as $p)
+          <div class="flex items-center gap-3">
+            <img src="{{ $p['model']->photo_url }}" alt="{{ $p['model']->name }}" class="w-8 h-8 rounded-full object-cover border border-emerald-100">
+            <div class="text-left">
+              <div class="text-[10px] font-bold text-slate-500 uppercase">{{ $p['jabatan'] }}</div>
+              <div class="text-xs text-slate-800 font-semibold">{{ $p['model']->name }}</div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+      @endif
     </div>
 
   </div>
@@ -146,4 +153,4 @@
 </section>
 
 <div class="h-16"></div>
-@endsection 
+@endsection

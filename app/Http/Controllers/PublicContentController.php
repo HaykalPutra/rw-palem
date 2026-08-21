@@ -47,7 +47,27 @@ class PublicContentController extends Controller
         }
 
         $ketua = OrgMember::where('role_type', 'ketua_rw')->orderBy('sort_order')->first();
-        $rts   = OrgMember::where('role_type', 'rt')->orderBy('rt_number')->get();
+
+        $rtOrder = ['Ketua' => 0, 'Sekretaris' => 1, 'Bendahara' => 2];
+        $rts = OrgMember::where('role_type', 'rt')
+            ->orderBy('rt_number')
+            ->orderBy('sort_order')
+            ->get()
+            ->groupBy('rt_number')
+            ->map(function ($members, $rtNumber) use ($rtOrder) {
+                return [
+                    'nomor'   => $rtNumber,
+                    'anggota' => $members->sortBy(function ($m) use ($rtOrder) {
+                        foreach ($rtOrder as $label => $order) {
+                            if (str_starts_with($m->position, $label)) {
+                                return $order;
+                            }
+                        }
+                        return 99;
+                    })->values(),
+                ];
+            })
+            ->values();
 
         $divisi = OrgMember::where('role_type', 'divisi')->orderBy('sort_order')->get();
 

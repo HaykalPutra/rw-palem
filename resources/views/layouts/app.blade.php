@@ -23,6 +23,8 @@
 
 @include('partials.footer')
 
+@include('partials.whatsapp-bubble')
+
 <script>
 (function(){
   /* ── Progress bar ── */
@@ -84,7 +86,7 @@
 <!-- ========================================== -->
 <!-- ALERT PWA INSTALL (MINI POPUP POSYANDU STYLE) -->
 <!-- ========================================== -->
-<div id="pwa-install-alert" style="display: none; transform: translateY(150%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[99] w-[320px] bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] border border-slate-100 p-4">
+<div id="pwa-install-alert" style="display: none; transform: translateY(150%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" class="fixed bottom-6 left-6 sm:bottom-8 sm:left-8 z-[99] w-[320px] bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] border border-slate-100 p-4">
     <div class="flex items-start gap-3">
         <img src="{{ asset('pwa-192x192.png') }}" alt="Logo PWA" class="w-11 h-11 rounded-xl shadow-sm border border-slate-100 mt-0.5 object-cover">
         <div class="flex-1">
@@ -111,13 +113,13 @@
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        
+
         // Memunculkan kembali semua tombol install manual di beranda/halaman lain
         document.querySelectorAll('.btn-install-pwa').forEach(btn => {
-            btn.style.display = 'inline-flex'; 
+            btn.style.display = 'inline-flex';
         });
 
-        // Tampilkan popup mini di kanan bawah
+        // Tampilkan popup mini di kiri bawah
         pwaAlert.style.display = 'block';
         setTimeout(() => {
             pwaAlert.style.transform = 'translateY(0)';

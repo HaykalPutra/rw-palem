@@ -85,6 +85,18 @@
       <p class="text-xs text-slate-500 leading-relaxed">{{ setting('layanan.card_5_desc','Kontak darurat dan kontrol patroli keamanan terintegrasi.') }}</p>
     </a>
 
+    {{-- Kartu Install Aplikasi Android — cuma muncul kalau browser mendukung install PWA (ditangani triggerPwaInstall() & .btn-install-pwa di app.blade.php) --}}
+    <button type="button" onclick="window.triggerPwaInstall()" style="display: none;"
+            class="btn-install-pwa group flex flex-col items-start text-left border border-slate-800 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 bg-gradient-to-br from-slate-900 to-slate-800 reveal-scale d6 w-full">
+      <div class="w-11 h-11 shrink-0 rounded-xl bg-white/10 group-hover:bg-white/20 text-white flex items-center justify-center mb-5 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+          <path fill-rule="evenodd" d="M10.5 1.875c-1.036 0-1.875.84-1.875 1.875v16.5c0 1.035.84 1.875 1.875 1.875h3c1.035 0 1.875-.84 1.875-1.875V3.75c0-1.036-.84-1.875-1.875-1.875h-3Zm.75 15.75a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <h3 class="font-bold text-white mb-2">{{ setting('layanan.card_6_title','Install Aplikasi Android') }}</h3>
+      <p class="text-xs text-slate-300 leading-relaxed">{{ setting('layanan.card_6_desc','Akses website Palem lebih cepat dan praktis — install ke HP kamu, tampil seperti aplikasi Android biasa langsung dari layar utama.') }}</p>
+    </button>
+
   </div>
 </section>
 
@@ -105,4 +117,3 @@
 </section>
 
 @endsection
-
